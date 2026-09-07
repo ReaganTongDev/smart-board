@@ -1,0 +1,42 @@
+{
+  "name": "smart-board",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "build:frontend": "vite build",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:backend": "npm run build && wrangler deploy",
+    "deploy:frontend": "npm run build && wrangler pages deploy dist/client/client --project-name=smart-board",
+    "db:migrate:local": "wrangler d1 execute smart-board-db --local --file=migrations/0001_initial.sql",
+    "db:migrate:remote": "wrangler d1 execute smart-board-db --remote --file=migrations/0001_initial.sql",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+  },
+  "dependencies": {
+    "@google/genai": "^2.21.0",
+    "@simplewebauthn/browser": "^13.3.0",
+    "@simplewebauthn/server": "^13.3.0",
+    "hono": "^4.13.5",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.53.1",
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.4.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "wrangler": "^3.101.0"
+  }
+}

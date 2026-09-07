@@ -1,0 +1,19 @@
+# ─── Smartboard Environment Variables Example ───────────────────
+# Copy this file to .dev.vars for local development:
+#   cp .dev.vars.example .dev.vars
+
+# HMAC secret key for signing session cookies and WebAuthn challenges
+# Generate a strong 64-character secret using: openssl rand -hex 32
+SESSION_SECRET=dev-secret-change-this-in-production-use-openssl-rand-hex-32
+
+# WebAuthn Relying Party ID (domain hostname without protocol or port)
+# Local: "localhost"
+# Production Pages: "smart-board.pages.dev" (or your custom domain: "smartboard.example.com")
+# Production Workers: "smart-board.<subdomain>.workers.dev"
+RP_ID=localhost
+
+# WebAuthn Origin (full protocol + hostname + port)
+# Local: "http://localhost:5173"
+# Production Pages: "https://smart-board.pages.dev" (or "https://smartboard.example.com")
+# Production Workers: "https://smart-board.<subdomain>.workers.dev"
+ORIGIN=http://localhost:5173

@@ -1,0 +1,38 @@
+{
+  // $schema can be regenerated with: npx wrangler types
+  "name": "smart-board",
+  "main": "./src/worker/index.ts",
+  "compatibility_date": "2025-09-04",
+  // nodejs_compat enables Node.js APIs like crypto.randomUUID() and Buffer
+  "compatibility_flags": ["nodejs_compat"],
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "smart-board-db",
+      // Run `npx wrangler d1 create smart-board-db` and paste the returned ID here
+      "database_id": "152d0d38-3375-423b-9682-edbf8e9dab70",
+      "migrations_dir": "./migrations"
+    }
+  ],
+
+  "assets": {
+    // Vite builds the React SPA here during `npm run build`
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    // Serve index.html for all unmatched routes (enables client-side routing)
+    "not_found_handling": "single-page-application",
+    // Ensure the Worker receives all requests first (Hono handles /api and /mcp, then falls through to ASSETS)
+    "run_worker_first": true
+  },
+
+  "observability": {
+    "enabled": true
+  }
+
+  // Production secrets — set via:
+  //   npx wrangler secret put SESSION_SECRET
+  //   npx wrangler secret put RP_ID
+  //   npx wrangler secret put ORIGIN
+  // Local dev values are in .dev.vars (git-ignored)
+}

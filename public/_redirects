@@ -1,0 +1,8 @@
+# Cloudflare Redirects Configuration
+# Note: Single Page Application (SPA) routing is handled automatically
+# by Cloudflare Workers via `not_found_handling: "single-page-application"`.
+# Do not add `/* /index.html 200` here as Cloudflare's API flags it as a loop.
+
+# Optional: To proxy API requests from Pages to your Worker, uncomment:
+# /api/*  https://smart-board.<your-subdomain>.workers.dev/api/:splat  200
+# /mcp    https://smart-board.<your-subdomain>.workers.dev/mcp         200

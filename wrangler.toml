@@ -1,0 +1,53 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "smart-board"
+main = "./src/worker/index.ts"
+compatibility_date = "2025-09-04"
+compatibility_flags = ["nodejs_compat"]
+
+# ─── Cloudflare D1 Database Binding ──────────────────────────────
+# Run `npx wrangler d1 create smart-board-db` and paste your database_id below
+[[d1_databases]]
+binding = "DB"
+database_name = "smart-board-db"
+database_id = "152d0d38-3375-423b-9682-edbf8e9dab70"
+migrations_dir = "./migrations"
+
+# ─── Production Environment Variables ────────────────────────────
+# Set these to match your production domain:
+#
+# If Frontend is on Cloudflare Pages (e.g. https://smart-board.pages.dev):
+#   RP_ID  = "smart-board.pages.dev"
+#   ORIGIN = "https://smart-board.pages.dev"
+#
+# If Frontend & Backend are unified on Cloudflare Workers (e.g. https://smart-board.<subdomain>.workers.dev):
+#   RP_ID  = "smart-board.<subdomain>.workers.dev"
+#   ORIGIN = "https://smart-board.<subdomain>.workers.dev"
+#
+# If using a Custom Domain (e.g. https://smartboard.example.com):
+#   RP_ID  = "smartboard.example.com"
+#   ORIGIN = "https://smartboard.example.com"
+[vars]
+RP_ID = "localhost"
+ORIGIN = "http://localhost:5173"
+
+# ─── Static Assets (for unified Worker deployment) ───────────────
+# When using Pages, this can remain commented or point to the Vite build directory
+[assets]
+directory = "./dist/client/client"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = true
+
+# ─── Logging & Observability ─────────────────────────────────────
+[observability]
+enabled = true
+
+# ─── IMPORTANT: Production Secrets ───────────────────────────────
+# Sensitive secrets should NOT be committed to git. Set them via CLI:
+#
+#   npx wrangler secret put SESSION_SECRET
+#   (Enter a 64-char random hex string: openssl rand -hex 32)
+#
+# You can also override RP_ID and ORIGIN for production via secrets if preferred:
+#   npx wrangler secret put RP_ID
+#   npx wrangler secret put ORIGIN

@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.wrangler/
+
+# Local secrets — never commit
+.dev.vars
+
+# Type generation output
+worker-configuration.d.ts
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
